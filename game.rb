@@ -1,8 +1,8 @@
-require './item.rb'
+require './item'
 
 class Game < Item
   attr_accessor :multiplayer, :last_played
-  
+
   def initialize(publish_date, multiplayer, last_played, archived: false)
     super(publish_date, archived: archived)
     @multiplayer = multiplayer
