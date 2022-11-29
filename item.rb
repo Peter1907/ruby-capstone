@@ -1,6 +1,9 @@
 class Item
+  attr_reader :id, :archived
+  attr_accessor :genre, :author, :source, :label, :publish_date
+
   def initialize(publish_date, archived: false)
-    @id = rand[0..100]
+    @id = Random.rand(1..100)
     @genre = []
     @author = []
     @source = []
@@ -10,19 +13,19 @@ class Item
   end
 
   def add_genre(genre)
-    @genre << Genre.new(genre)
+    @genre << genre
   end
 
   def add_author(author)
-    @author << Author.new(author)
+    @author << author
   end
 
   def add_source(source)
-    @source << Source.new(source)
+    @source << source
   end
 
   def add_label(label)
-    @label << Label.new(label)
+    @label << label
   end
 
   def can_be_archived?
