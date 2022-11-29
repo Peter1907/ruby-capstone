@@ -12,7 +12,7 @@ class Item
   def add_genre(genre)
     @genre << Genre.new(genre)
   end
-  
+
   def add_author(author)
     @author << Author.new(author)
   end
