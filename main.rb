@@ -1,4 +1,4 @@
-MENU = <<~MLS
+MENU = <<~MLS.freeze
   1. List all books
   2. List all music albums
   3. List all movies
