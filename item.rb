@@ -27,7 +27,8 @@ class Item
 
   def can_be_archived?
     return true if @publish_date < (Time.now.year - 10).to_s
-    return false
+
+    false
   end
 
   def move_to_archive
