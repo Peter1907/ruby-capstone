@@ -1,3 +1,5 @@
+require './app'
+
 MENU = <<~MLS.freeze
   1. List all books
   2. List all music albums
@@ -14,17 +16,51 @@ MENU = <<~MLS.freeze
   13. Exit
 MLS
 
+CHOICES = {
+  1 => 'list_all_books',
+  2 => 'list_all_music_albums',
+  3 => 'list_all_movies',
+  4 => 'list_all_games',
+  5 => 'list_all_genres',
+  6 => 'list_all_labels',
+  7 => 'list_all_authors',
+  8 => 'list_all_sources',
+  9 => 'add_book',
+  10 => 'add_music_album',
+  11 => 'add_movie',
+  12 => 'add_game'
+}.freeze
+
 class Main
   def initialize
+    @app = App.new
     puts 'Welcome to the Media Library'
+    puts '****************************'
+    load
     loop do
       puts MENU
       input = gets.chomp.to_i
-      if input == 13
+      case input
+      when 1..12
+        @app.send(CHOICES[input])
+      when 13
+        save
         puts 'Thank you for using the Media Library'
         break
+      else
+        puts 'Invalid choice, Please input a number between 1 and 13'
       end
     end
+  end
+
+  def load
+    @app.load_games
+    @app.load_authors
+  end
+
+  def save
+    @app.store_games
+    @app.store_authors
   end
 end
 
