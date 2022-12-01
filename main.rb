@@ -1,4 +1,11 @@
 require './app'
+require './create_music_album'
+require './create_genre'
+require './music_album'
+require './lists'
+require './genre'
+require './item'
+require './preserve_data'
 
 MENU = <<~MLS.freeze
   1. List all books
@@ -56,11 +63,15 @@ class Main
   def load
     @app.load_games
     @app.load_authors
+    PreserveData.load_genres
+    PreserveData.load_albums(@app.genres)
   end
 
   def save
     @app.store_games
     @app.store_authors
+    PreserveData.store_genres(@app.genres)
+    PreserveData.store_albums(@app.music_albums)
   end
 end
 

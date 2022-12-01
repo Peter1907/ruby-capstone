@@ -1,11 +1,21 @@
 require './game'
 require './author'
 require 'json'
+require './create_music_album'
+require './create_genre'
+require './music_album'
+require './lists'
+require './genre'
+require './item'
+require './preserve_data'
 
 class App
+  attr_accessor :music_albums, :genres
   def initialize
     @games = []
     @authors = []
+    @genres = PreserveData.load_genres
+    @music_albums = PreserveData.load_albums(@genres)
   end
 
   def store_games
@@ -76,5 +86,13 @@ class App
     author.add_item(game)
     @games << game
     @authors << author
+  end
+
+  def add_music_album
+    AlbumCreator.new.create_album(@music_albums, @genres)
+  end
+
+  def list_all_music_albums
+    List.new.list_all_music_albums(@music_albums)
   end
 end
