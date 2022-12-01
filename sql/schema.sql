@@ -11,20 +11,20 @@ CREATE TABLE source (
 );
 
 CREATE TABLE book(
-  ID SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   publish_date DATE NOT NULL,
   archived BOOLEAN NOT NULL,
   publisher VARCHAR(30) NOT NULL,
   cover_state VARCHAR(10) NOT NULL,
-  label_ID INT,
-  author_ID INT,
-  genre_ID INT,
-  FOREIGN KEY (label_ID) REFERENCES label(ID),
-  FOREIGN KEY (author_ID) REFERENCES author(ID),
-  FOREIGN KEY(genre_ID) REFERENCES genre(ID)
+  label_id INT,
+  author_id INT,
+  genre_id INT,
+  FOREIGN KEY (label_id) REFERENCES label(id),
+  FOREIGN KEY (author_id) REFERENCES author(id),
+  FOREIGN KEY(genre_id) REFERENCES genre(id)
 );
 
 CREATE TABLE label(
-  ID SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(30)
 );
