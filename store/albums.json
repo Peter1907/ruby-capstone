@@ -19,5 +19,12 @@
     "id": 85,
     "on_spotify": true,
     "genre": 953
+  },
+  {
+    "publish_date": "12/12/22",
+    "archived": true,
+    "id": 42,
+    "on_spotify": true,
+    "genre": 859
   }
 ]

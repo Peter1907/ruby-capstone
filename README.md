@@ -4,7 +4,7 @@ Ruby Capstone
 
 ## Description
 
-Still in development
+This is a console app that allows users to keep a record of different types of things they may own: books, music albums, games. Everything in this project is based on the UML class diagram. The data is stored in JSON files. 
 
 ## Getting Started
 
@@ -18,7 +18,11 @@ Still in development
 
 - Open the terminal on your computer
 - Navigate through directories till you're in the wanted folder, or simply navigate to the desired folder, right click & choose open terminal here.
-- To be updated...
+- Run "ruby main.rb" in the terminal.
+
+### Tests 
+- To run the test you have to have rspec installed.
+- Run the "rspec spec"
 
 ## Built With
 
