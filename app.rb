@@ -96,4 +96,8 @@ class App
   def list_all_music_albums
     List.new.list_all_music_albums(@music_albums)
   end
+
+  def list_all_genres
+    List.new.list_all_genres(@genres)
+  end
 end
