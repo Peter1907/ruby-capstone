@@ -11,6 +11,7 @@ require './preserve_data'
 
 class App
   attr_accessor :music_albums, :genres
+
   def initialize
     @games = []
     @authors = []

@@ -5,5 +5,12 @@
     "id": 30,
     "on_spotify": true,
     "genre": 743
+  },
+  {
+    "publish_date": "222222",
+    "archived": true,
+    "id": 9,
+    "on_spotify": true,
+    "genre": 320
   }
 ]
