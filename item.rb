@@ -13,23 +13,19 @@ class Item
   end
 
   def add_genre(genre)
-    @genre = genre
-    genre.items.push(self) unless genre.items.include?(self)
+    @genre << genre unless @genre.include?(genre)
   end
 
   def add_author(author)
-    @author = author
-    author.items.push(self) unless author.items.include?(self)
+    @author << author unless @author.include?(author)
   end
 
   def add_source(source)
-    @source = source
-    source.items.push(self) unless source.items.include?(self)
+    @source << source unless @source.include?(source)
   end
 
   def add_label(label)
-    @label = label
-    label.items.push(self) unless label.items.include?(self)
+    @label << label unless @label.include?(label)
   end
 
   def can_be_archived?
