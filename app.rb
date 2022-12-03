@@ -44,8 +44,8 @@ class App
     games = JSON.parse(games)
     games.each do |game|
       new_game = Game.new(game['publish_date'], game['multiplayer'], game['last_played'])
-      first_name = game['author'].split(' ')[0]
-      last_name = game['author'].split(' ')[1]
+      first_name = game['author'].split[0]
+      last_name = game['author'].split[1]
       author = Author.new(first_name, last_name)
       new_game.add_author(author)
       label = Label.new(game['label'])
@@ -68,7 +68,8 @@ class App
   def list_all_games
     @games.map do |game|
       puts "Game: #{game.label[0].name}, Publish Date: #{game.publish_date}",
-           "Multiplayer: #{game.multiplayer}, Last Played: #{game.last_played}, author: #{game.author[0].first_name} #{game.author[0].last_name}"
+           "Multiplayer: #{game.multiplayer}, Last Played: #{game.last_played},
+           author: #{game.author[0].first_name} #{game.author[0].last_name}"
     end
     puts '************************'
     puts
