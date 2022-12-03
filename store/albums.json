@@ -26,5 +26,19 @@
     "id": 42,
     "on_spotify": true,
     "genre": 859
+  },
+  {
+    "publish_date": "565656",
+    "archived": true,
+    "id": 10,
+    "on_spotify": true,
+    "genre": 416
+  },
+  {
+    "publish_date": "wal",
+    "archived": true,
+    "id": 95,
+    "on_spotify": true,
+    "genre": 86
   }
 ]
