@@ -65,6 +65,7 @@ class Main
     @app.load_authors
     PreserveData.load_genres
     PreserveData.load_albums(@app.genres)
+    @app.load_books
   end
 
   def save
@@ -72,6 +73,7 @@ class Main
     @app.store_authors
     PreserveData.store_genres(@app.genres)
     PreserveData.store_albums(@app.music_albums)
+    @app.store_books
   end
 end
 

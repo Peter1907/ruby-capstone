@@ -1,6 +1,6 @@
+require 'json'
 require './game'
 require './author'
-require 'json'
 require './create_music_album'
 require './create_genre'
 require './music_album'
@@ -8,11 +8,14 @@ require './lists'
 require './genre'
 require './item'
 require './preserve_data'
+require './book'
+require './label'
 
 class App
   attr_accessor :music_albums, :genres
 
   def initialize
+    @books = []
     @games = []
     @authors = []
     @genres = PreserveData.load_genres
@@ -21,8 +24,8 @@ class App
 
   def store_games
     games = @games.map do |game|
-      { label: game.label, publish_date: game.publish_date, multiplayer: game.multiplayer,
-        last_played: game.last_played }
+      { label: game.label[0].name, publish_date: game.publish_date, multiplayer: game.multiplayer,
+        last_played: game.last_played, author: "#{game.author[0].first_name} #{game.author[0].last_name}" }
     end
     games = JSON.generate(games)
     File.write('./store/games.json', games)
@@ -40,8 +43,14 @@ class App
     games = File.read('./store/games.json')
     games = JSON.parse(games)
     games.each do |game|
-      game = Game.new(game['publish_date'], game['multiplayer'], game['last_played'])
-      @games << game
+      new_game = Game.new(game['publish_date'], game['multiplayer'], game['last_played'])
+      first_name = game['author'].split(' ')[0]
+      last_name = game['author'].split(' ')[1]
+      author = Author.new(first_name, last_name)
+      new_game.add_author(author)
+      label = Label.new(game['label'])
+      new_game.add_label(label)
+      @games << new_game
     end
   end
 
@@ -57,7 +66,10 @@ class App
   end
 
   def list_all_games
-    @games.map { |game| puts "Game: #{game.label}, Publish Date: #{game.publish_date}" }
+    @games.map do |game|
+      puts "Game: #{game.label[0].name}, Publish Date: #{game.publish_date}",
+           "Multiplayer: #{game.multiplayer}, Last Played: #{game.last_played}, author: #{game.author[0].first_name} #{game.author[0].last_name}"
+    end
     puts '************************'
     puts
   end
@@ -71,6 +83,8 @@ class App
   end
 
   def add_game
+    puts 'Enter the title'
+    title = gets.chomp
     puts 'Enter Publish Date [YYYY]:'
     publish_date = gets.chomp
     puts 'Enter Multiplayer [true/false]:'
@@ -78,6 +92,8 @@ class App
     puts 'Enter Last Played [YYYY]:'
     last_played = gets.chomp
     game = Game.new(publish_date, multiplayer, last_played)
+    label = Label.new(title)
+    game.add_label(label)
     puts 'Enter Author\'s First Name:'
     first_name = gets.chomp
     puts 'Enter Author\'s Last Name:'
@@ -99,5 +115,62 @@ class App
 
   def list_all_genres
     List.new.list_all_genres(@genres)
+  end
+
+  def add_book
+    puts 'Please enter the title'
+    title = gets.chomp
+    puts 'Please enter the publish date [YYYY]'
+    publish_date = gets.chomp
+    puts 'Please enter the publisher'
+    publisher = gets.chomp
+    puts 'Please enter the cover state [good/bad]'
+    cover_state = gets.chomp
+    book = Book.new(publish_date, publisher, cover_state)
+    label = Label.new(title)
+    book.add_label(label)
+    @books << book
+    puts 'Book added successfully'
+    puts '************************'
+    puts
+  end
+
+  def list_all_books
+    @books.map do |book|
+      puts "Book: #{book.label[0].name}, Publish Date: #{book.publish_date}",
+           "Publisher: #{book.publisher}, Cover State: #{book.cover_state}"
+    end
+    puts '************************'
+    puts
+  end
+
+  def store_books
+    books = @books.map do |book|
+      { label: book.label[0].name, publish_date: book.publish_date, publisher: book.publisher,
+        cover_state: book.cover_state }
+    end
+    books = JSON.generate(books)
+    File.write('./store/books.json', books)
+  end
+
+  def load_books
+    return unless File.exist?('./store/books.json')
+
+    books = File.read('./store/books.json')
+    books = JSON.parse(books)
+    books.each do |book|
+      new_book = Book.new(book['publish_date'], book['publisher'], book['cover_state'])
+      label = Label.new(book['label'])
+      new_book.add_label(label)
+      @books << new_book
+    end
+  end
+
+  def list_all_labels
+    Label.all.each_with_index do |label, index|
+      puts "#{index + 1}. #{label.name} (#{label.items[0].class})"
+    end
+    puts '************************'
+    puts
   end
 end

@@ -10,7 +10,11 @@ class Label < Item
   end
 
   def add_item(item)
-    @items << item
-    item.label = self
+    @items << item unless @items.include?(item)
+    item.add_label(self)
+  end
+
+  def self.all
+    ObjectSpace.each_object(self).to_a
   end
 end
